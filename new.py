@@ -3,11 +3,11 @@ import requests
 import time # Added for better timeout handling (optional)
 
 # --- API Endpoints ---
-# New working API for Facts
+# API for Facts
 TRIVIA_API = "https://opentdb.com/api.php?amount=1&category=9&type=multiple"
-# Working API for Quotes
+# API for Quotes
 ADVICE_API = "https://api.adviceslip.com/advice"
-# Working API for Images
+# API for Images
 DOG_IMAGE_API = "https://dog.ceo/api/breeds/image/random"
 
 # Set a reliable timeout for all requests
@@ -26,7 +26,6 @@ def get_serendipity_data():
         
         if trivia_data['response_code'] == 0:
             result = trivia_data['results'][0]
-            # Clean up HTML entities (like &quot; or &#039;)
             question = result['question'].replace("&quot;", '"').replace("&#039;", "'")
             answer = result['correct_answer'].replace("&quot;", '"').replace("&#039;", "'")
             
@@ -65,7 +64,6 @@ def get_serendipity_data():
 
 # --- Streamlit Application Logic ---
 
-# Line 56 from your error is resolved: this is outside the function
 st.set_page_config(page_title="Serendipity Generator", layout="wide")
 st.title("🐍 Python Serendipity Generator")
 st.markdown("---")
@@ -103,4 +101,5 @@ with col3:
         st.error("Image failed to load.")
 
 st.markdown("---")
-st.caption("Project built by a future developer!")
+
+st.caption("Project built by a future developer! (Ashraf)")
