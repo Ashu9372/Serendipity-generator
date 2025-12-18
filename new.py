@@ -1,8 +1,7 @@
 import streamlit as st
 import requests
-import time # Added for better timeout handling (optional)
+import time
 
-# --- API Endpoints ---
 # API for Facts
 TRIVIA_API = "https://opentdb.com/api.php?amount=1&category=9&type=multiple"
 # API for Quotes
@@ -10,7 +9,7 @@ ADVICE_API = "https://api.adviceslip.com/advice"
 # API for Images
 DOG_IMAGE_API = "https://dog.ceo/api/breeds/image/random"
 
-# Set a reliable timeout for all requests
+# Set a reliable timeout
 API_TIMEOUT = 10
 
 def get_serendipity_data():
@@ -18,7 +17,7 @@ def get_serendipity_data():
     
     data = {}
     
-    # 1. Fetch Trivia Fact (JSON)
+    # 1. Fetch Trivia Fact
     try:
         fact_response = requests.get(TRIVIA_API, timeout=API_TIMEOUT)
         fact_response.raise_for_status() 
@@ -38,7 +37,7 @@ def get_serendipity_data():
         print(f"Error fetching trivia fact: {e}")
         data['fact'] = "Trivia fact failed to load." # This is the fallback message
 
-    # 2. Fetch Quote/Advice (JSON)
+    # 2. Fetch Quote/Advice
     try:
         quote_response = requests.get(ADVICE_API, timeout=API_TIMEOUT)
         quote_response.raise_for_status() 
@@ -49,7 +48,7 @@ def get_serendipity_data():
         data['quote'] = "Life is a journey, not a destination. (Quote API failed to load)"
 
 
-    # 3. Fetch Dog Image URL (JSON)
+    # 3. Fetch Dog Image URL 
     try:
         image_response = requests.get(DOG_IMAGE_API, timeout=API_TIMEOUT)
         image_response.raise_for_status()
@@ -65,14 +64,12 @@ def get_serendipity_data():
 # --- Streamlit Application Logic ---
 
 st.set_page_config(page_title="Serendipity Generator", layout="wide")
-st.title("🐍 Python Serendipity Generator")
+st.title("🐍 Serendipity Generator")
 st.markdown("---")
 
-# Use st.session_state to store and re-run data on button click
 if 'data' not in st.session_state:
     st.session_state['data'] = get_serendipity_data()
 
-# Button to generate new data
 if st.button('✨ Generate New Serendipity'):
     # Clear cache and fetch new data
     st.session_state['data'] = get_serendipity_data()
@@ -88,7 +85,7 @@ with col1:
     st.info(current_data['fact'])
 
 with col2:
-    st.subheader("Wise Advice")
+    st.subheader("Wise-Advice")
     st.warning(f'"{current_data["quote"]}"')
 
 with col3:
@@ -102,4 +99,5 @@ with col3:
 
 st.markdown("---")
 
-st.caption("Project built by a future developer! (Ashraf)")
+st.caption("Project built by a Ashraf k !")
+
